@@ -4,10 +4,10 @@
     "displayName": "Bowtie Chart by MAQ Software",
     "guid": "BowtieChart1465021618681",
     "visualClassName": "BowtieChart",
-    "version": "3.2.0",
+    "version": "3.2.1",
     "description": "Bowtie chart",
-    "supportUrl": "https://github.com/maqsoftware/PowerBI-visuals/issues",
-    "gitHubUrl": "https://github.com/maqsoftware/PowerBI-visuals/"
+    "supportUrl": "https://github.com/maqsoftware/BowtieChart/issues",
+    "gitHubUrl": "https://github.com/maqsoftware/BowtieChart/"
   },
   "apiVersion": "2.5.0",
   "author": {

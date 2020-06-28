@@ -30,7 +30,7 @@ module powerbi.extensibility.visual {
         context: HTMLElement;
         isTouchEvent: boolean;
     }
-    
+
     export let bowtieProps: any = {
         general: {
             ArcFillColor: <DataViewObjectPropertyIdentifier>{ objectName: 'general', propertyName: 'ArcFillColor' }
@@ -132,7 +132,7 @@ module powerbi.extensibility.visual {
         private prevIndicator: boolean = false;
         private isNegative: boolean = false;
         private formatString: string = '0';
-        
+
         public thisObj: any;
         public flagliteral: number;
         public categoryLabel: string;
@@ -846,7 +846,7 @@ module powerbi.extensibility.visual {
             }
 
             objects = dataView.metadata.objects;
-            
+
             let asterPlotLabelsProperties: any;
             asterPlotLabelsProperties = bowtieProps;
 
@@ -872,7 +872,7 @@ module powerbi.extensibility.visual {
             }
 
             objects = dataView.metadata.objects;
-            
+
             let asterPlotLabelsProperties: any;
             asterPlotLabelsProperties = bowtieProps;
 
@@ -1086,7 +1086,7 @@ module powerbi.extensibility.visual {
                 } else {
                     cat = category.toString();
                 }
-                asterDataResult.dataPoints.forEach((d: IBowtieDataPoint):void =>{
+                asterDataResult.dataPoints.forEach((d: IBowtieDataPoint): void => {
                     if (d.SourceCategoryLabel === cat) {
                         d.selectionId.push(host.createSelectionIdBuilder().withCategory(catSource, i).createSelectionId());
                     }
@@ -1245,7 +1245,7 @@ module powerbi.extensibility.visual {
                 thisObjNew.root.select('.Title_Div_Text')
                     .style({ display: 'inline-block', 'background-color': header.titlebgcolor, 'font-size': PixelConverter.toString(PixelConverter.fromPointToPixel(header.titlefontsize)), color: header.titlecolor });
             }
-            thisObjNew.root.select('.GMODonutTitleDiv').text(header.titleText).attr('title',header.tooltiptext);
+            thisObjNew.root.select('.GMODonutTitleDiv').text(header.titleText).attr('title', header.tooltiptext);
             thisObjNew.root.select('.GMODonutTitleIcon').style({ display: 'none' });
             if ('' !== header.tooltiptext && (1 !== thisObjNew.updateCount || '' !== header.titleText)) {
                 thisObjNew.root.select('.GMODonutTitleIcon').style({ display: 'inline-block' }).attr('title', header.tooltiptext);
@@ -1562,28 +1562,32 @@ module powerbi.extensibility.visual {
             thisObjNew.data = dataUpdate;
         }
         public update(options: VisualUpdateOptions): void {
-            this.events.renderingStarted(options);
-            this.flagliteral = 0;
-            this.categoryLabel = '';
-            this.selectionManager = this.selectionManager;
-            this.percentageLiteral = '%';
-            this.updateCount++;
-            if (!options.dataViews || !options.dataViews[0]) {
-                return;
-            }
-            this.currentViewport = {
-                height: Math.max(0, options.viewport.height),
-                width: Math.max(0, options.viewport.width)
-            };
+            try {
+                this.events.renderingStarted(options);
+                this.flagliteral = 0;
+                this.categoryLabel = '';
+                this.selectionManager = this.selectionManager;
+                this.percentageLiteral = '%';
+                this.updateCount++;
+                if (!options.dataViews || !options.dataViews[0]) {
+                    return;
+                }
+                this.currentViewport = {
+                    height: Math.max(0, options.viewport.height),
+                    width: Math.max(0, options.viewport.width)
+                };
 
-            let dataView1: DataView;
-            this.thisObj = this;
-            dataView1 = this.dataView = options.dataViews[0];
-            this.dataViews = options.dataViews;
-            let label: string;
-            let sumvalue: number;
-            this.updateInternal(dataView1, this.colors, this.host, this.data, this, label, sumvalue, '');
-            this.events.renderingFinished(options);
+                let dataView1: DataView;
+                this.thisObj = this;
+                dataView1 = this.dataView = options.dataViews[0];
+                this.dataViews = options.dataViews;
+                let label: string;
+                let sumvalue: number;
+                this.updateInternal(dataView1, this.colors, this.host, this.data, this, label, sumvalue, '');
+                this.events.renderingFinished(options);
+            } catch (exception) {
+                this.events.renderingFailed(options, exception);
+            }
         }
         private dataViewContainsCategory(dataView: DataView): DataViewCategoryColumn {
             return dataView &&
@@ -1611,7 +1615,7 @@ module powerbi.extensibility.visual {
         }
 
         //This function returns the title text given for the title in the format window */
-        
+
         private getTitleText(dataView: DataView): string {
             let returnTitleValues: string;
             let returnTitleLegend: string;
@@ -1762,7 +1766,7 @@ module powerbi.extensibility.visual {
         }
 
         // This function returns the funnel title font size selected for the title in the format window
-        
+
         private getTitleSize(dataView: DataView): number {
             let gmoDonutTitle: string;
             let fontSizeLiteral: string;
